@@ -22,26 +22,28 @@ public class Lexer {
     public static List<Token> tokenize(BufferedReader reader) throws IOException {
         List<Token> tokens = new ArrayList<>();
         String line = reader.readLine();
+        int lineNumber = 1;
         while (line != null) {
             StringBuffer buffer = new StringBuffer();
             for(char c : line.toCharArray()) {
                 if (c == ' ') {
                     if (buffer.length() != 0) {
-                        addTokenFromBuffer(tokens, buffer);
+                        addTokenFromBuffer(tokens, buffer, lineNumber);
                     }
                     continue;
                 } else if (SEPARATORS.contains(c) || OPERATORS.contains(c)) {
-                    addTokenFromBuffer(tokens, buffer);
-                    tokens.add(new Token(String.valueOf(c)));
+                    addTokenFromBuffer(tokens, buffer, lineNumber);
+                    tokens.add(new Token(String.valueOf(c), lineNumber));
                 } else {
                     buffer.append(c);
                 }
             }
 
             if (buffer.length() != 0) {
-                addTokenFromBuffer(tokens, buffer);
+                addTokenFromBuffer(tokens, buffer, lineNumber);
             }
             line = reader.readLine();
+            lineNumber++;
         }
 
         return tokens;
@@ -52,9 +54,10 @@ public class Lexer {
      *
      * @param tokens トークンのリスト
      * @param buffer 現在まで読み込んだ文字列のバッファ
+     * @param lineNumber 現在読んでいる行数
      */
-    private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer) {
-        tokens.add(new Token(buffer.toString()));
+    private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer, int lineNumber) {
+        tokens.add(new Token(buffer.toString(), lineNumber));
         buffer.delete(0, buffer.length());
     }
 

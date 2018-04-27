@@ -18,16 +18,16 @@ public class LexerTest {
                 " test-   x; hey";
 
         List<Token> expected = new ArrayList<>();
-        expected.add(new Token("int"));
-        expected.add(new Token("foo"));
-        expected.add(new Token("="));
-        expected.add(new Token("123"));
-        expected.add(new Token(";"));
-        expected.add(new Token("test"));
-        expected.add(new Token("-"));
-        expected.add(new Token("x"));
-        expected.add(new Token(";"));
-        expected.add(new Token("hey"));
+        expected.add(new Token("int", 1));
+        expected.add(new Token("foo", 1));
+        expected.add(new Token("=", 1));
+        expected.add(new Token("123", 1));
+        expected.add(new Token(";", 1));
+        expected.add(new Token("test", 2));
+        expected.add(new Token("-", 2));
+        expected.add(new Token("x", 2));
+        expected.add(new Token(";", 2));
+        expected.add(new Token("hey", 2));
 
         List<Token> actual = Lexer.tokenize(text);
         for(int i=0; i < actual.size(); i++){

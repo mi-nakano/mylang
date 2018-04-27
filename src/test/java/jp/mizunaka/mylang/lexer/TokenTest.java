@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class TokenTest {
-    Token foo = new Token("foo");
+    Token foo = new Token("foo", 1);
 
     @Test
     public void getValue() {
@@ -17,12 +17,13 @@ public class TokenTest {
 
     @Test
     public void equal() {
-        assertTrue(foo.equals(new Token(foo.getValue())));
+        assertTrue(foo.equals(new Token(foo.getValue(), foo.getLineNumber())));
     }
 
     @Test
     public void isNotequal() {
         assertFalse(foo.equals(null));
-        assertFalse(foo.equals(new Token("hoge")));
+        assertFalse(foo.equals(new Token("hoge", foo.getLineNumber())));
+        assertFalse(foo.equals(new Token(foo.getValue(), 0)));
     }
 }
