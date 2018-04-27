@@ -1,4 +1,4 @@
-package jp.mizunaka.mylang;
+package jp.mizunaka.mylang.lexer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

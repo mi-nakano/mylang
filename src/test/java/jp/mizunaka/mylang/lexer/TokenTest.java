@@ -1,5 +1,6 @@
-package jp.mizunaka.mylang;
+package jp.mizunaka.mylang.lexer;
 
+import jp.mizunaka.mylang.lexer.Token;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;

@@ -1,4 +1,4 @@
-package jp.mizunaka.mylang;
+package jp.mizunaka.mylang.lexer;
 
 public class Token {
 
