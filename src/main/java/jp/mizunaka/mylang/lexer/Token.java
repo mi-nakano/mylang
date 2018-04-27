@@ -18,6 +18,22 @@ public class Token {
         return lineNumber;
     }
 
+    public boolean isNum() {
+        return false;
+    }
+
+    public boolean isId() {
+        return false;
+    }
+
+    public boolean isOperator() {
+        return false;
+    }
+
+    public boolean isSeparator() {
+        return false;
+    }
+
     @Override
     public int hashCode() {
         if (value == null) {
