@@ -1,16 +1,14 @@
 package jp.mizunaka.mylang.lexer;
 
+import jp.mizunaka.mylang.Rule;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Lexer {
-
-    private static List<Character> OPERATORS = Arrays.asList('+', '-', '*', '/', '=');
-    private static List<Character> SEPARATORS = Arrays.asList(';', '\n');
 
     /**
      * Readerから文字列を全て読み、Tokenのリストを生成し返却する
@@ -31,9 +29,9 @@ public class Lexer {
                         addTokenFromBuffer(tokens, buffer, lineNumber);
                     }
                     continue;
-                } else if (SEPARATORS.contains(c) || OPERATORS.contains(c)) {
+                } else if (Rule.SEPARATORS.contains(c) || Rule.OPERATORS.contains(c)) {
                     addTokenFromBuffer(tokens, buffer, lineNumber);
-                    tokens.add(new Token(String.valueOf(c), lineNumber));
+                    tokens.add(TokenFactory.createToken(c, lineNumber));
                 } else {
                     buffer.append(c);
                 }
@@ -57,7 +55,7 @@ public class Lexer {
      * @param lineNumber 現在読んでいる行数
      */
     private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer, int lineNumber) {
-        tokens.add(new Token(buffer.toString(), lineNumber));
+        tokens.add(TokenFactory.createToken(buffer.toString(), lineNumber));
         buffer.delete(0, buffer.length());
     }
 
