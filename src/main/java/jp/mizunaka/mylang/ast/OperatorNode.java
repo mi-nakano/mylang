@@ -24,7 +24,7 @@ public class OperatorNode extends ASTNode {
             }
             env.put(name, right);
 
-            return right;
+            return env.get(name);
         }
 
         int left = (Integer) children.get(0).eval(env);
