@@ -1,7 +1,6 @@
 package jp.mizunaka.mylang.ast;
 
 import jp.mizunaka.mylang.Environment;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public class OperatorNode extends ASTNode {
 

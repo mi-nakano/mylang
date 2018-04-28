@@ -20,6 +20,9 @@ public class StatementParser extends AbstractParser {
         } else if (peekToken(tokens).getValue().equals("if")) {
             IfParser ip = new IfParser();
             node = ip.parse(tokens);
+        } else if (peekToken(tokens).getValue().equals("while")) {
+            WhileParser wp = new WhileParser();
+            node = wp.parse(tokens);
         } else {
             ExpressionParser ep = new ExpressionParser();
             node = ep.parse(tokens);
