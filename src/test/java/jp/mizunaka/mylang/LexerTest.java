@@ -15,7 +15,7 @@ public class LexerTest {
     public void tokenize() throws IOException {
         String text =
                 "  int   foo=123;\n" +
-                " test-   x; hey";
+                " test-   x; (hey)";
 
         List<Token> expected = new ArrayList<>();
         expected.add(new Token("int", 1));
@@ -27,7 +27,9 @@ public class LexerTest {
         expected.add(new Token("-", 2));
         expected.add(new Token("x", 2));
         expected.add(new Token(";", 2));
+        expected.add(new Token("(", 2));
         expected.add(new Token("hey", 2));
+        expected.add(new Token(")", 2));
 
         List<Token> actual = Lexer.tokenize(text);
         for(int i=0; i < actual.size(); i++){

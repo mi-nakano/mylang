@@ -31,7 +31,7 @@ public class Lexer {
                         addTokenFromBuffer(tokens, buffer, lineNumber);
                     }
                     continue;
-                } else if (c == Rule.SEPARATOR || Rule.OPERATORS.contains(c)) {
+                } else if (Rule.SEPARATORS.contains(c) || Rule.OPERATORS.contains(c)) {
                     addTokenFromBuffer(tokens, buffer, lineNumber);
                     tokens.add(TokenFactory.createToken(c, lineNumber));
                 } else {

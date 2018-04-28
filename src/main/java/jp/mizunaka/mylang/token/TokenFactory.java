@@ -10,7 +10,7 @@ public class TokenFactory {
     public static Token createToken(String value, int lineNumber) {
         if (value.length() == 1) {
             char valueChar = value.charAt(0);
-            if (valueChar == Rule.SEPARATOR) {
+            if (Rule.SEPARATORS.contains(valueChar)) {
                 return new SeparatorToken(value, lineNumber);
             }
             if (Rule.OPERATORS.contains(valueChar)) {

@@ -1,7 +1,6 @@
 package jp.mizunaka.mylang.token;
 
 import jp.mizunaka.mylang.Rule;
-import jp.mizunaka.mylang.token.*;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -9,8 +8,10 @@ import static junit.framework.TestCase.assertTrue;
 public class TokenFactoryTest {
     @Test
     public void createSeparatorToken() {
-        Token t = TokenFactory.createToken(Rule.SEPARATOR, 1);
-        assertTrue(t instanceof SeparatorToken);
+        for(char c : Rule.SEPARATORS) {
+            Token t = TokenFactory.createToken(c, 1);
+            assertTrue(t instanceof SeparatorToken);
+        }
     }
 
     @Test
