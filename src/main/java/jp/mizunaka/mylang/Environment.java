@@ -7,6 +7,9 @@ public class Environment {
     private Map<String, Object> table = new HashMap<>();
 
     public Environment() {}
+    public Environment(Environment env) {
+        this.table.putAll(env.table);
+    }
 
     public boolean has(String name) {
         return table.containsKey(name);
