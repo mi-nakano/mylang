@@ -1,5 +1,7 @@
 package jp.mizunaka.mylang.ast;
 
+import jp.mizunaka.mylang.Environment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public abstract class ASTNode {
         children.add(node);
     }
 
-    public abstract Object eval() throws MylangRuntimeException;
+    public abstract Object eval(Environment env) throws MylangRuntimeException;
 
     @Override
     public String toString() {

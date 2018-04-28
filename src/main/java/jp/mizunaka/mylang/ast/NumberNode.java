@@ -1,5 +1,7 @@
 package jp.mizunaka.mylang.ast;
 
+import jp.mizunaka.mylang.Environment;
+
 public class NumberNode extends ASTNode {
     private final int num;
 
@@ -11,7 +13,7 @@ public class NumberNode extends ASTNode {
     }
 
     @Override
-    public Object eval() {
+    public Object eval(Environment env) {
         return new Integer(num);
     }
 }

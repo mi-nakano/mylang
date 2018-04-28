@@ -1,5 +1,7 @@
 package jp.mizunaka.mylang.ast;
 
+import jp.mizunaka.mylang.Environment;
+
 public class OperatorNode extends ASTNode {
 
     private final char opcode;
@@ -12,9 +14,9 @@ public class OperatorNode extends ASTNode {
     }
 
     @Override
-    public Object eval() throws MylangRuntimeException {
-        int left = (Integer) children.get(0).eval();
-        int right = (Integer) children.get(1).eval();
+    public Object eval(Environment env) throws MylangRuntimeException {
+        int left = (Integer) children.get(0).eval(env);
+        int right = (Integer) children.get(1).eval(env);
         switch (opcode) {
             case '+':
                 return left + right;
