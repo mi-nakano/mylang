@@ -29,7 +29,7 @@ public class Lexer {
                         addTokenFromBuffer(tokens, buffer, lineNumber);
                     }
                     continue;
-                } else if (Rule.SEPARATORS.contains(c) || Rule.OPERATORS.contains(c)) {
+                } else if (c == Rule.SEPARATOR || Rule.OPERATORS.contains(c)) {
                     addTokenFromBuffer(tokens, buffer, lineNumber);
                     tokens.add(TokenFactory.createToken(c, lineNumber));
                 } else {
@@ -47,6 +47,16 @@ public class Lexer {
         return tokens;
     }
 
+    public static List<Token> tokenize(Reader reader) throws IOException {
+        BufferedReader br = new BufferedReader(reader);
+        return tokenize(br);
+    }
+
+    public static List<Token> tokenize(String text) throws IOException {
+        BufferedReader br = new BufferedReader(new java.io.StringReader(text));
+        return tokenize(br);
+    }
+
     /**
      * 現在バッファに入っている文字列をTokenのリストに追加し、バッファの中身を空にする
      *
@@ -58,16 +68,4 @@ public class Lexer {
         tokens.add(TokenFactory.createToken(buffer.toString(), lineNumber));
         buffer.delete(0, buffer.length());
     }
-
-    public static List<Token> tokenize(Reader reader) throws IOException {
-        BufferedReader br = new BufferedReader(reader);
-        return tokenize(br);
-    }
-
-    public static List<Token> tokenize(String text) throws IOException {
-        BufferedReader br = new BufferedReader(new java.io.StringReader(text));
-        return tokenize(br);
-    }
-
-
 }

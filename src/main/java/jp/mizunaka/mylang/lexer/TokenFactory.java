@@ -2,6 +2,8 @@ package jp.mizunaka.mylang.lexer;
 
 import jp.mizunaka.mylang.Rule;
 
+import java.io.Reader;
+
 public class TokenFactory {
     public static Token createToken(char c, int lineNumber) {
         return createToken(String.valueOf(c), lineNumber);
@@ -10,7 +12,7 @@ public class TokenFactory {
     public static Token createToken(String value, int lineNumber) {
         if (value.length() == 1) {
             char valueChar = value.charAt(0);
-            if (Rule.SEPARATORS.contains(valueChar)) {
+            if (valueChar == Rule.SEPARATOR) {
                 return new SeparatorToken(value, lineNumber);
             }
             if (Rule.OPERATORS.contains(valueChar)) {
