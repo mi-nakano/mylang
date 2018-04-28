@@ -18,7 +18,6 @@ public class DeclarationParser extends AbstractParser {
             throw new MylangParseException();
         }
         String name = t.getValue();
-        System.out.println(name);
         ASTNode node = new DeclarationNode(name);
         if (peekToken(tokens).getValue().equals(";")) {
             return node;

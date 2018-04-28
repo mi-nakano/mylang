@@ -1,7 +1,6 @@
 package jp.mizunaka.mylang.ast;
 
 import jp.mizunaka.mylang.Environment;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public class OperatorNode extends ASTNode {
 
@@ -24,7 +23,7 @@ public class OperatorNode extends ASTNode {
             }
             env.put(name, right);
 
-            return right;
+            return env.get(name);
         }
 
         int left = (Integer) children.get(0).eval(env);

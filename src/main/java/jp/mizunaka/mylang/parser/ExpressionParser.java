@@ -17,11 +17,17 @@ public class ExpressionParser extends AbstractParser {
                 break;
             }
             Token t = peekToken(tokens);
-            if (!peekToken(tokens).getValue().equals("+") && !peekToken(tokens).getValue().equals("-")
-                    && !peekToken(tokens).getValue().equals("=")) {
+            if (!t.getValue().equals("+") && !t.getValue().equals("-")
+                    && !t.getValue().equals("=")) {
                 break;
             }
             popToken(tokens);
+            if (t.getValue().equals("=")) {     // 変数の代入の場合
+                ASTNode node = new OperatorNode(t.getValue());
+                node.addChild(left);
+                node.addChild(this.parse(tokens));
+                return node;
+            }
             ASTNode node = new OperatorNode(t.getValue());
             node.addChild(left);
 

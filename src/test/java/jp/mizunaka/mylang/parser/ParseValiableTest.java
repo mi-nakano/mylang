@@ -53,6 +53,20 @@ public class ParseValiableTest {
     }
 
     @Test
+    public void referenceAndAssign() throws Exception {
+        Environment env = new Environment();
+        List<Token> tokens = Lexer.tokenize("var x = 1;");
+        ASTNode node = new StatementParser().parse(tokens);
+        node.eval(env);
+        tokens = Lexer.tokenize("x = x - 1;");
+        node = new StatementParser().parse(tokens);
+        node.eval(env);
+        tokens = Lexer.tokenize("x;");
+        node = new StatementParser().parse(tokens);
+        assertEquals(new Integer(0), node.eval(env));
+    }
+
+    @Test
     public void referenceUnassignedValue() throws Exception {
         Environment env = new Environment();
         List<Token> tokens = Lexer.tokenize("x;");

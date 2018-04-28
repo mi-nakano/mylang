@@ -13,12 +13,12 @@ public class DeclarationNode extends ASTNode {
     public Object eval(Environment env) throws MylangRuntimeException {
         // 変数宣言のみの場合
         if (children.size() == 0) {
-            env.put(name, null);
+            env.assign(name, null);
             return null;
         }
 
         Object value = children.get(0).eval(env);
-        env.put(name, value);
+        env.assign(name, value);
         return value;
     }
 }
