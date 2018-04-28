@@ -9,6 +9,10 @@ public class IdNode extends ASTNode {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public Object eval(Environment env) throws MylangRuntimeException {
         if (!env.has(name)) {

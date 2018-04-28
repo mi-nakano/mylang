@@ -1,6 +1,7 @@
 package jp.mizunaka.mylang.ast;
 
 import jp.mizunaka.mylang.Environment;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public class OperatorNode extends ASTNode {
 
@@ -15,8 +16,18 @@ public class OperatorNode extends ASTNode {
 
     @Override
     public Object eval(Environment env) throws MylangRuntimeException {
-        int left = (Integer) children.get(0).eval(env);
         int right = (Integer) children.get(1).eval(env);
+        if (opcode == '=' && children.get(0) instanceof IdNode) {
+            String name = ((IdNode) children.get(0)).getName();
+            if (!env.has(name)) {
+                throw new MylangRuntimeException();
+            }
+            env.put(name, right);
+
+            return right;
+        }
+
+        int left = (Integer) children.get(0).eval(env);
         switch (opcode) {
             case '+':
                 return left + right;

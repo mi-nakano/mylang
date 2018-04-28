@@ -9,8 +9,15 @@ public class StatementParser extends AbstractParser {
 
     @Override
     public ASTNode parse(List<Token> tokens) throws MylangParseException {
-        ExpressionParser ep = new ExpressionParser();
-        ASTNode node = ep.parse(tokens);
+        ASTNode node;
+        if(peekToken(tokens).getValue().equals("var")){
+            DeclarationParser dp = new DeclarationParser();
+            node = dp.parse(tokens);
+        } else {
+            ExpressionParser ep = new ExpressionParser();
+            node = ep.parse(tokens);
+        }
+
         if (!popToken(tokens).getValue().equals(";")) {
             throw new MylangParseException();
         }
