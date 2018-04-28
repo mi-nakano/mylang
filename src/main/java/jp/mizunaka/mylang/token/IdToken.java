@@ -1,4 +1,4 @@
-package jp.mizunaka.mylang.lexer;
+package jp.mizunaka.mylang.token;
 
 public class IdToken extends Token {
 

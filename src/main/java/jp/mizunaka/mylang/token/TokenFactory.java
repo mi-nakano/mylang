@@ -1,8 +1,6 @@
-package jp.mizunaka.mylang.lexer;
+package jp.mizunaka.mylang.token;
 
 import jp.mizunaka.mylang.Rule;
-
-import java.io.Reader;
 
 public class TokenFactory {
     public static Token createToken(char c, int lineNumber) {

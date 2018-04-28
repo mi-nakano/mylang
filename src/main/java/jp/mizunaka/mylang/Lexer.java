@@ -1,6 +1,8 @@
-package jp.mizunaka.mylang.lexer;
+package jp.mizunaka.mylang;
 
 import jp.mizunaka.mylang.Rule;
+import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

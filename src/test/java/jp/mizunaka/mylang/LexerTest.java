@@ -1,5 +1,7 @@
-package jp.mizunaka.mylang.lexer;
+package jp.mizunaka.mylang;
 
+import jp.mizunaka.mylang.Lexer;
+import jp.mizunaka.mylang.token.Token;
 import org.junit.Test;
 
 import java.io.IOException;
