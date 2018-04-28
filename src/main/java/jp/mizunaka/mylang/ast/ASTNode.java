@@ -14,4 +14,15 @@ public abstract class ASTNode {
     }
 
     public abstract Object eval() throws MylangRuntimeException;
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Node: " + this.getClass().getName());
+        for(ASTNode node : children) {
+            sb.append("\n");
+            sb.append(node.toString());
+        }
+        return sb.toString();
+    }
 }
