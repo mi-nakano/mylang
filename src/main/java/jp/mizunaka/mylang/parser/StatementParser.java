@@ -10,6 +10,10 @@ public class StatementParser extends AbstractParser {
     @Override
     public ASTNode parse(List<Token> tokens) throws MylangParseException {
         ExpressionParser ep = new ExpressionParser();
-        return ep.parse(tokens);
+        ASTNode node = ep.parse(tokens);
+        if (!popToken(tokens).getValue().equals(";")) {
+            throw new MylangParseException();
+        }
+        return node;
     }
 }
