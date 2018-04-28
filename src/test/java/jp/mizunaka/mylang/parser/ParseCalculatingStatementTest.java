@@ -1,5 +1,6 @@
 package jp.mizunaka.mylang.parser;
 
+import jp.mizunaka.mylang.Environment;
 import jp.mizunaka.mylang.Lexer;
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.token.Token;
@@ -35,7 +36,7 @@ public class ParseCalculatingStatementTest {
     public void parseInput(String input, Integer expected) throws Exception {
         List<Token> tokens = Lexer.tokenize(input);
         ASTNode node = new StatementParser().parse(tokens);
-        assertEquals(expected, node.eval());
+        assertEquals(expected, node.eval(new Environment()));
     }
 
     @ParameterizedTest

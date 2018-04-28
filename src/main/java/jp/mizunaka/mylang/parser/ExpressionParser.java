@@ -17,7 +17,8 @@ public class ExpressionParser extends AbstractParser {
                 break;
             }
             Token t = peekToken(tokens);
-            if (!peekToken(tokens).getValue().equals("+") && !peekToken(tokens).getValue().equals("-")) {
+            if (!peekToken(tokens).getValue().equals("+") && !peekToken(tokens).getValue().equals("-")
+                    && !peekToken(tokens).getValue().equals("=")) {
                 break;
             }
             popToken(tokens);
