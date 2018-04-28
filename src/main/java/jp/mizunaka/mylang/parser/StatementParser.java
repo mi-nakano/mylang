@@ -13,14 +13,21 @@ public class StatementParser extends AbstractParser {
         if(peekToken(tokens).getValue().equals("var")){
             DeclarationParser dp = new DeclarationParser();
             node = dp.parse(tokens);
+
+            if (!popToken(tokens).getValue().equals(";")) {
+                throw new MylangParseException();
+            }
+        } else if (peekToken(tokens).getValue().equals("if")) {
+            IfParser ip = new IfParser();
+            node = ip.parse(tokens);
         } else {
             ExpressionParser ep = new ExpressionParser();
             node = ep.parse(tokens);
+            if (!popToken(tokens).getValue().equals(";")) {
+                throw new MylangParseException();
+            }
         }
 
-        if (!popToken(tokens).getValue().equals(";")) {
-            throw new MylangParseException();
-        }
         return node;
     }
 }
