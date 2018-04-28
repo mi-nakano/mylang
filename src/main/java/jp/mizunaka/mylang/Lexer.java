@@ -67,6 +67,7 @@ public class Lexer {
      * @param lineNumber 現在読んでいる行数
      */
     private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer, int lineNumber) {
+        if(buffer.length() == 0) return;
         tokens.add(TokenFactory.createToken(buffer.toString(), lineNumber));
         buffer.delete(0, buffer.length());
     }
