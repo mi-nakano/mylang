@@ -1,6 +1,8 @@
-package jp.mizunaka.mylang.lexer;
+package jp.mizunaka.mylang;
 
 import jp.mizunaka.mylang.Rule;
+import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,18 +49,6 @@ public class Lexer {
         return tokens;
     }
 
-    /**
-     * 現在バッファに入っている文字列をTokenのリストに追加し、バッファの中身を空にする
-     *
-     * @param tokens トークンのリスト
-     * @param buffer 現在まで読み込んだ文字列のバッファ
-     * @param lineNumber 現在読んでいる行数
-     */
-    private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer, int lineNumber) {
-        tokens.add(TokenFactory.createToken(buffer.toString(), lineNumber));
-        buffer.delete(0, buffer.length());
-    }
-
     public static List<Token> tokenize(Reader reader) throws IOException {
         BufferedReader br = new BufferedReader(reader);
         return tokenize(br);
@@ -69,5 +59,16 @@ public class Lexer {
         return tokenize(br);
     }
 
-
+    /**
+     * 現在バッファに入っている文字列をTokenのリストに追加し、バッファの中身を空にする
+     *
+     * @param tokens トークンのリスト
+     * @param buffer 現在まで読み込んだ文字列のバッファ
+     * @param lineNumber 現在読んでいる行数
+     */
+    private static void addTokenFromBuffer(List<Token> tokens, StringBuffer buffer, int lineNumber) {
+        if(buffer.length() == 0) return;
+        tokens.add(TokenFactory.createToken(buffer.toString(), lineNumber));
+        buffer.delete(0, buffer.length());
+    }
 }
