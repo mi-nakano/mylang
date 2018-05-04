@@ -14,17 +14,13 @@ public class ParseWhileStatementTest {
     @Test
     public void whileStatement() throws Exception {
         Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("var x = 0;");
-        ASTNode node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("var count = 3;");
-        node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("while(count) { count = count - 1; x = x + 1; }");
-        node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x;");
-        node = new StatementParser().parse(tokens);
+        List<Token> tokens = Lexer.tokenize(
+            "var x = 0;" +
+            "var count = 3;" +
+            "while(count) { count = count - 1; x = x + 1; }" +
+            "x;"
+        );
+        ASTNode node = new ProgramParser().parse(tokens);
         assertEquals(new Integer(3), node.eval(env));
     }
 }
