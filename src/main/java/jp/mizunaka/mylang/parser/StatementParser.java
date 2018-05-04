@@ -1,32 +1,30 @@
 package jp.mizunaka.mylang.parser;
 
 import jp.mizunaka.mylang.ast.ASTNode;
-import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 
-import java.util.List;
-
-public class StatementParser extends AbstractParser {
+public class StatementParser implements Parser {
 
     @Override
-    public ASTNode parse(List<Token> tokens) throws MylangParseException {
+    public ASTNode parse(TokenList tokens) throws MylangParseException {
         ASTNode node;
-        if(peekToken(tokens).getValue().equals("var")){
+        if(tokens.peekToken().getValue().equals("var")){
             DeclarationParser dp = new DeclarationParser();
             node = dp.parse(tokens);
 
-            if (!popToken(tokens).getValue().equals(";")) {
+            if (!tokens.popToken().getValue().equals(";")) {
                 throw new MylangParseException();
             }
-        } else if (peekToken(tokens).getValue().equals("if")) {
+        } else if (tokens.peekToken().getValue().equals("if")) {
             IfParser ip = new IfParser();
             node = ip.parse(tokens);
-        } else if (peekToken(tokens).getValue().equals("while")) {
+        } else if (tokens.peekToken().getValue().equals("while")) {
             WhileParser wp = new WhileParser();
             node = wp.parse(tokens);
         } else {
             ExpressionParser ep = new ExpressionParser();
             node = ep.parse(tokens);
-            if (!popToken(tokens).getValue().equals(";")) {
+            if (!tokens.popToken().getValue().equals(";")) {
                 throw new MylangParseException();
             }
         }

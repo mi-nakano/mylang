@@ -3,13 +3,11 @@ package jp.mizunaka.mylang.parser;
 import jp.mizunaka.mylang.Environment;
 import jp.mizunaka.mylang.Lexer;
 import jp.mizunaka.mylang.ast.ASTNode;
-import jp.mizunaka.mylang.token.Token;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,8 +32,7 @@ public class ParseCalculatingStatementTest {
     @ParameterizedTest
     @MethodSource("provider")
     public void parseInput(String input, Integer expected) throws Exception {
-        List<Token> tokens = Lexer.tokenize(input);
-        ASTNode node = new StatementParser().parse(tokens);
+        ASTNode node = new StatementParser().parse(Lexer.tokenize(input));
         assertEquals(expected, node.eval(new Environment()));
     }
 
@@ -47,8 +44,7 @@ public class ParseCalculatingStatementTest {
     })
     public void parseIllegalInput(String input) throws Exception{
         assertThrows(MylangParseException.class, () -> {
-            List<Token> tokens = Lexer.tokenize(input);
-            new StatementParser().parse(tokens);
+            new StatementParser().parse(Lexer.tokenize(input));
         });
     }
 

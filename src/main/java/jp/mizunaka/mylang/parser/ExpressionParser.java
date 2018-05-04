@@ -3,25 +3,24 @@ package jp.mizunaka.mylang.parser;
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.ast.OperatorNode;
 import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 
-import java.util.List;
-
-public class ExpressionParser extends AbstractParser {
+public class ExpressionParser implements Parser {
 
     @Override
-    public ASTNode parse(List<Token> tokens) throws MylangParseException {
-        AbstractParser parser = new TermParser();
+    public ASTNode parse(TokenList tokens) throws MylangParseException {
+        Parser parser = new TermParser();
         ASTNode left = parser.parse(tokens);
         while(true) {
             if (tokens.isEmpty()) {
                 break;
             }
-            Token t = peekToken(tokens);
+            Token t = tokens.peekToken();
             if (!t.getValue().equals("+") && !t.getValue().equals("-")
                     && !t.getValue().equals("=")) {
                 break;
             }
-            popToken(tokens);
+            tokens.popToken();
             if (t.getValue().equals("=")) {     // 変数の代入の場合
                 ASTNode node = new OperatorNode(t.getValue());
                 node.addChild(left);

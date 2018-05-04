@@ -2,17 +2,15 @@ package jp.mizunaka.mylang.parser;
 
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.ast.StatementsNode;
-import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 
-import java.util.List;
-
-public class ProgramParser extends AbstractParser {
+public class ProgramParser implements Parser {
 
     @Override
-    public ASTNode parse(List<Token> tokens) throws MylangParseException {
-        AbstractParser parser = new StatementParser();
+    public ASTNode parse(TokenList tokens) throws MylangParseException {
+        Parser parser = new StatementParser();
         ASTNode node = new StatementsNode();
-        while(tokens.size() > 0) {
+        while(tokens.getSize() > 0) {
            node.addChild(parser.parse(tokens));
         }
         return node;

@@ -1,8 +1,8 @@
 package jp.mizunaka.mylang;
 
-import jp.mizunaka.mylang.Rule;
 import jp.mizunaka.mylang.token.Token;
 import jp.mizunaka.mylang.token.TokenFactory;
+import jp.mizunaka.mylang.token.TokenList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Lexer {
      * @return Tokenのリスト
      * @throws IOException Readerの読み込みに失敗した場合発生
      */
-    public static List<Token> tokenize(BufferedReader reader) throws IOException {
+    public static TokenList tokenize(BufferedReader reader) throws IOException {
         List<Token> tokens = new ArrayList<>();
         String line = reader.readLine();
         int lineNumber = 1;
@@ -46,15 +46,15 @@ public class Lexer {
             lineNumber++;
         }
 
-        return tokens;
+        return new TokenList(tokens);
     }
 
-    public static List<Token> tokenize(Reader reader) throws IOException {
+    public static TokenList tokenize(Reader reader) throws IOException {
         BufferedReader br = new BufferedReader(reader);
         return tokenize(br);
     }
 
-    public static List<Token> tokenize(String text) throws IOException {
+    public static TokenList tokenize(String text) throws IOException {
         BufferedReader br = new BufferedReader(new java.io.StringReader(text));
         return tokenize(br);
     }

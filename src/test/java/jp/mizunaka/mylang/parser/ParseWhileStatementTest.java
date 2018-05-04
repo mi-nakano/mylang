@@ -3,10 +3,8 @@ package jp.mizunaka.mylang.parser;
 import jp.mizunaka.mylang.Environment;
 import jp.mizunaka.mylang.Lexer;
 import jp.mizunaka.mylang.ast.ASTNode;
-import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,7 +12,7 @@ public class ParseWhileStatementTest {
     @Test
     public void whileStatement() throws Exception {
         Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize(
+        TokenList tokens = Lexer.tokenize(
             "var x = 0;" +
             "var count = 3;" +
             "while(count) { count = count - 1; x = x + 1; }" +
