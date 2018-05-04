@@ -4,73 +4,41 @@ import jp.mizunaka.mylang.Environment;
 import jp.mizunaka.mylang.Lexer;
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.ast.MylangRuntimeException;
-import jp.mizunaka.mylang.token.Token;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParseValiableTest {
-    @Test
-    public void parseDeclarationStatment() throws Exception {
-        Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("var x = 1;");
-        ASTNode node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x + 2;");
-        node = new StatementParser().parse(tokens);
-        assertEquals(new Integer(3), node.eval(env));
+    static Stream<Arguments> provider() {
+        return Stream.of(
+                Arguments.of("var x=1; x+2;", 3),
+                Arguments.of("var x; x=2; x;", 2),
+                Arguments.of("var x=1; x=2; x;", 2),
+                Arguments.of("var x = 1; x = x -1; x;", 0)
+        );
     }
 
-    @Test
-    public void parseAssignAfterDeclarationStatment() throws Exception {
+    @ParameterizedTest
+    @MethodSource("provider")
+    public void parseDeclarationStatment(String input, Integer expected) throws Exception {
         Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("var x;");
-        ASTNode node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x = 2;");
-        node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x;");
-        node = new StatementParser().parse(tokens);
-        assertEquals(new Integer(2), node.eval(env));
+        ASTNode node = new ProgramParser().parse(Lexer.tokenize(input));
+        assertEquals(expected, node.eval(env));
     }
 
-    @Test
-    public void parseReAssignStatment() throws Exception {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "x;"
+    })
+    public void referenceUnassignedValue(String input) throws Exception {
         Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("var x = 1;");
-        ASTNode node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x = 2;");
-        node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x;");
-        node = new StatementParser().parse(tokens);
-        assertEquals(new Integer(2), node.eval(env));
-    }
-
-    @Test
-    public void referenceAndAssign() throws Exception {
-        Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("var x = 1;");
-        ASTNode node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x = x - 1;");
-        node = new StatementParser().parse(tokens);
-        node.eval(env);
-        tokens = Lexer.tokenize("x;");
-        node = new StatementParser().parse(tokens);
-        assertEquals(new Integer(0), node.eval(env));
-    }
-
-    @Test
-    public void referenceUnassignedValue() throws Exception {
-        Environment env = new Environment();
-        List<Token> tokens = Lexer.tokenize("x;");
-        ASTNode node = new StatementParser().parse(tokens);
+        ASTNode node = new ProgramParser().parse(Lexer.tokenize(input));
         assertThrows(MylangRuntimeException.class, () -> {
             node.eval(env);
         });
