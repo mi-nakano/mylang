@@ -4,7 +4,6 @@ import jp.mizunaka.mylang.token.Token;
 import jp.mizunaka.mylang.token.TokenList;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,30 +13,37 @@ public class LexerTest {
     @Test
     public void tokenize() throws Exception {
         String text =
-                "  int   foo=123;\n" +
-                " test-   x; (hey)";
+                "  foo=123;\n" +
+                " def foo(a, b,c){\n" +
+                "  1;\n" +
+                "}\n";
 
         List<Token> expected = new ArrayList<>();
-        expected.add(new Token("int", 1));
         expected.add(new Token("foo", 1));
         expected.add(new Token("=", 1));
         expected.add(new Token("123", 1));
         expected.add(new Token(";", 1));
-        expected.add(new Token("test", 2));
-        expected.add(new Token("-", 2));
-        expected.add(new Token("x", 2));
-        expected.add(new Token(";", 2));
-        expected.add(new Token("(", 2));
-        expected.add(new Token("hey", 2));
-        expected.add(new Token(")", 2));
+        expected.add(new Token("def",2));
+        expected.add(new Token("foo",2));
+        expected.add(new Token("(",2));
+        expected.add(new Token("a",2));
+        expected.add(new Token(",",2));
+        expected.add(new Token("b",2));
+        expected.add(new Token(",",2));
+        expected.add(new Token("c",2));
+        expected.add(new Token(")",2));
+        expected.add(new Token("{",2));
+        expected.add(new Token("1",3));
+        expected.add(new Token(";",3));
+        expected.add(new Token("}",4));
 
         TokenList actual = Lexer.tokenize(text);
+        assertEquals(expected.size(), actual.getSize());
         int index = 0;
         while(!actual.isEmpty()) {
             assertEquals(expected.get(index), actual.popToken());
             index++;
         }
-        assertEquals(expected.size(), actual.getSize());
     }
 
 }
