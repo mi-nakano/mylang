@@ -2,14 +2,12 @@ package jp.mizunaka.mylang.parser;
 
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.ast.WhileNode;
-import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 
-import java.util.List;
-
-public class WhileParser extends AbstractParser {
+public class WhileParser implements Parser {
     @Override
-    public ASTNode parse(List<Token> tokens) throws MylangParseException {
-        if(!popToken(tokens).getValue().equals("while")) {
+    public ASTNode parse(TokenList tokens) throws MylangParseException {
+        if(!tokens.popToken().getValue().equals("while")) {
             throw new MylangParseException();
         }
         ASTNode node = new WhileNode();

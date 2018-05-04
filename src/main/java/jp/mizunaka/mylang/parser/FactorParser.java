@@ -2,15 +2,13 @@ package jp.mizunaka.mylang.parser;
 
 import jp.mizunaka.mylang.ast.ASTNode;
 import jp.mizunaka.mylang.ast.NegativeNode;
-import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 
-import java.util.List;
-
-public class FactorParser extends AbstractParser {
+public class FactorParser implements Parser {
     @Override
-    public ASTNode parse(List<Token> tokens) throws MylangParseException {
-        if(peekToken(tokens).getValue().equals("-")) {
-            popToken(tokens);
+    public ASTNode parse(TokenList tokens) throws MylangParseException {
+        if(tokens.peekToken().getValue().equals("-")) {
+            tokens.popToken();
             ASTNode node = new NegativeNode();
             node.addChild(new PrimaryParser().parse(tokens));
             return node;

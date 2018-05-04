@@ -1,6 +1,7 @@
 package jp.mizunaka.mylang;
 
 import jp.mizunaka.mylang.token.Token;
+import jp.mizunaka.mylang.token.TokenList;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LexerTest {
     @Test
-    public void tokenize() throws IOException {
+    public void tokenize() throws Exception {
         String text =
                 "  int   foo=123;\n" +
                 " test-   x; (hey)";
@@ -30,11 +31,13 @@ public class LexerTest {
         expected.add(new Token("hey", 2));
         expected.add(new Token(")", 2));
 
-        List<Token> actual = Lexer.tokenize(text);
-        for(int i=0; i < actual.size(); i++){
-            assertEquals(expected.get(i), actual.get(i));
+        TokenList actual = Lexer.tokenize(text);
+        int index = 0;
+        while(!actual.isEmpty()) {
+            assertEquals(expected.get(index), actual.popToken());
+            index++;
         }
-        assertEquals(expected.size(), actual.size());
+        assertEquals(expected.size(), actual.getSize());
     }
 
 }
