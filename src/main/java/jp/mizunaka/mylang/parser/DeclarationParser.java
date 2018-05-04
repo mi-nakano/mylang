@@ -19,12 +19,17 @@ public class DeclarationParser implements Parser {
         String name = t.getValue();
         ASTNode node = new DeclarationNode(name);
         if (tokens.peekToken().getValue().equals(";")) {
+            tokens.popToken();
             return node;
         }
 
-        t = tokens.popToken();
-        if (t.getValue().equals("=")) {
+        if (tokens.peekToken().getValue().equals("=")) {
+            tokens.popToken();
             node.addChild(new ExpressionParser().parse(tokens));
+        }
+
+        if (!tokens.popToken().getValue().equals(";")) {
+            throw new MylangParseException();
         }
         return node;
     }

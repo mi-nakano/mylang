@@ -9,26 +9,17 @@ public class StatementParser implements Parser {
     public ASTNode parse(TokenList tokens) throws MylangParseException {
         ASTNode node;
         if(tokens.peekToken().getValue().equals("var")){
-            DeclarationParser dp = new DeclarationParser();
-            node = dp.parse(tokens);
-
-            if (!tokens.popToken().getValue().equals(";")) {
-                throw new MylangParseException();
-            }
+            return new DeclarationParser().parse(tokens);
         } else if (tokens.peekToken().getValue().equals("if")) {
-            IfParser ip = new IfParser();
-            node = ip.parse(tokens);
+            return new IfParser().parse(tokens);
         } else if (tokens.peekToken().getValue().equals("while")) {
-            WhileParser wp = new WhileParser();
-            node = wp.parse(tokens);
+            return new WhileParser().parse(tokens);
         } else {
-            ExpressionParser ep = new ExpressionParser();
-            node = ep.parse(tokens);
+            node = new ExpressionParser().parse(tokens);
             if (!tokens.popToken().getValue().equals(";")) {
                 throw new MylangParseException();
             }
+            return node;
         }
-
-        return node;
     }
 }

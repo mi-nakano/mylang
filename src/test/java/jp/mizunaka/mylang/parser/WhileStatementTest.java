@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParseWhileStatementTest {
+public class WhileStatementTest {
     @Test
     public void whileStatement() throws Exception {
         Environment env = new Environment();

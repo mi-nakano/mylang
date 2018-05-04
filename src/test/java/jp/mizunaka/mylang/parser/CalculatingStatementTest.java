@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class ParseCalculatingStatementTest {
+public class CalculatingStatementTest {
     static Stream<Arguments> provider() {
         return Stream.of(
                 Arguments.of("(1);", 1),
