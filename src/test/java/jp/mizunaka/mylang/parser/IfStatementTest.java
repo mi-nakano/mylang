@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ParseIfStatementTest {
+public class IfStatementTest {
     static Stream<Arguments> provider() {
         return Stream.of(
                 Arguments.of(
