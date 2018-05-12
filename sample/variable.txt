@@ -1,0 +1,5 @@
+var x;
+x = 2;
+var y = 1;
+x = x - y;
+x;
